@@ -1,0 +1,7 @@
+<app-recursive-list
+  [list]="list" [opened]="opened"
+  [selected]="(selected$ | async) ?? ''"
+
+  (open)="toggleOpened($event)"
+  (select)="selectItem($event)"
+/>

@@ -1,0 +1,28 @@
+<ul>
+  <ng-template #recursiveList let-list>
+    <li *ngFor="let item of list">
+
+      <div (click)="activate(item)">
+        <ng-container *ngIf="item.id === selected">
+          <div style="color: blue; text-transform: uppercase">{{item.title}} - {{item.id}}</div>
+        </ng-container>
+
+        <ng-container *ngIf="item.id !== selected">
+          <div>{{item.title}} - {{item.id}}</div>
+        </ng-container>
+      </div>
+
+      <ng-container *ngIf="item.children.length > 0">
+        <ng-container *ngIf="(opened.includes(item.id) || selected.startsWith(item.id))"> <!-- TODO -->
+          <ul>
+            <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
+          </ul>
+        </ng-container>
+      </ng-container>
+
+    </li>
+  </ng-template>
+
+  <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: list }"></ng-container>
+</ul>
+
